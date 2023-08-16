@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Abinav R <abinav.rvkrish@gmail.com>"]
 readme = "README.md"
-packages = [{include = "simple_prod_api"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
