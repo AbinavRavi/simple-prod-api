@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status
+from model import SentenceInput, OutputModel
 from typing import List, Dict
 import random
 import hashlib
@@ -11,10 +12,12 @@ def health_check() -> Dict:
     return {"status": "ok"}
 
 
-@app.post("/", status_code=status.HTTP_200_OK)
-def get_array(sentence: str) -> List[float]:
+@app.post("/get_array", status_code=status.HTTP_200_OK, response_model=OutputModel)
+def get_array(inp: SentenceInput) -> List[float]:
+    sentence = inp.sentence
     seed = int(hashlib.sha256(sentence.encode()).hexdigest(), 16)
     random.seed(seed)
     array_length = 500
     random_floats = [random.uniform(1.0, 1000.0) for _ in range(array_length)]
-    return random_floats
+    response = {"output": random_floats}
+    return response
