@@ -11,7 +11,7 @@ def health_check() -> Dict:
     return {"status": "ok"}
 
 
-@app.post("/", status_code=status.HTTP_201_CREATED)
+@app.post("/", status_code=status.HTTP_200_OK)
 def get_array(sentence: str) -> List[float]:
     seed = int(hashlib.sha256(sentence.encode()).hexdigest(), 16)
     random.seed(seed)
