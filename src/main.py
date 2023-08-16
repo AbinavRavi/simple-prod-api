@@ -1,5 +1,5 @@
 from fastapi import FastAPI, status
-from model import SentenceInput, OutputModel
+from src.model import SentenceInput, OutputModel
 from typing import List, Dict
 import random
 import hashlib
