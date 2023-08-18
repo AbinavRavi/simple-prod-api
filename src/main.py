@@ -1,10 +1,24 @@
 from fastapi import FastAPI, status
+from fastapi.middleware.cors import CORSMiddleware
 from src.model import SentenceInput, OutputModel
 from typing import List, Dict
 import random
 import hashlib
 
 app = FastAPI()
+
+# can add other frontend urls as well here now allowing all ports from frontend
+origins = [
+    "http://localhost",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/health_check", status_code=status.HTTP_200_OK)
