@@ -15,3 +15,9 @@ def test_get_array(client):
     res = OutputModel.model_validate(response.json())
     assert response.status_code == 200
     assert len(res.output) == 500
+
+
+@pytest.mark.endpoint
+@pytest.mark.xfail
+def test_get_array_fail(client):
+    pass
