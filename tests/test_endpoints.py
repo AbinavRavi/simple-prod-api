@@ -1,5 +1,5 @@
 import pytest
-from model import OutputModel
+from src.model import OutputModel
 
 
 @pytest.mark.endpoint
@@ -20,4 +20,15 @@ def test_get_array(client):
 @pytest.mark.endpoint
 @pytest.mark.xfail
 def test_get_array_fail(client):
-    pass
+    response = client.post("/get_array", json={"sentence": ""})
+    assert response.status_code == 422
+    assert response.json()["detail"] == {"sentence": ["This field is required."]}
+
+
+@pytest.mark.endpoint
+def test_get_array_different_data(client):
+    for sentence in ["hello", "world"]:
+        response = client.post("/get_array", json={"sentence": sentence})
+
+        assert response.status_code == 200
+        assert len(response.json()["output"]) == 500
