@@ -26,12 +26,31 @@ This will not allow to push code that doesnt meet standards mentioned in the pre
 ```
 uvicorn src.main:app --reload (if not in dev environment please dont use the reload flag)
 ```
-2. Since the app takes a sentence and generates 500 random numbers the sentence input can be provided as a json using either curl or postman or a client of your choice 
+2. Please go to the browser and go to 127.0.0.1:8000/docs from which we can perform a secure login and access the API
+3. To perform secure login please choose 
+```
+/token POST endpoint
+```
+and click on try it out after expanding on the endpoint. 
+4. In the username and password fields please enter the following
+```
+username: admin
+password: admin 
+```
+for testing purposes. This will return an access token and token_type as bearer
+5. Once you have logged in you can now access the functionality endpoint
+```
+/get_array POST endpoint
+```
+click on the lock symbol and re enter the username and password as mentioned in the previous step, now we have authenticated our access to the endpoint
+
+6. Since the app takes a sentence and generates 500 random numbers the sentence input can be provided as a json using either curl or postman or a client of your choice 
 
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"sentence": "Hello World"}' http://localhost:8000/get_array
 ```
-3. To run the tests locally you can run 
+or use the request body on the UI and modify the sentence. This should provide a correct response on the terminal
+7. To run the tests locally you can run 
 ```
 poetry run pytest tests/
 ```
