@@ -35,7 +35,7 @@ def verify_token(token: str = Depends(oauth2_scheme)):
     return username
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

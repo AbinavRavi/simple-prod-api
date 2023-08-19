@@ -2,6 +2,7 @@ import pytest
 import sys
 from os.path import abspath
 from os.path import dirname as d
+from passlib.context import CryptContext
 
 parent_dir = f"{d(d(abspath(__file__)))}"
 sys.path.append(f"{parent_dir}")
@@ -19,14 +20,27 @@ def client():
 
 @pytest.fixture
 def db():
+    user_dict = {
+        "username": "admin",
+        "email": "admin@admin.com",
+        "full_name": "admin",
+        "disabled": False,
+        "hashed_password": get_password_hash("admin"),
+    }
     yield {
-        "admin": UserInDB(username="admin", hashed_password=get_password_hash("admin")),
+        "admin": UserInDB(**user_dict),
     }
 
 
 @pytest.fixture
 def user(db):
     yield db["admin"]
+
+
+@pytest.fixture
+def pwd_context():
+    pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    yield pwd
 
 
 @pytest.fixture
