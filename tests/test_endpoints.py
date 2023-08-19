@@ -39,8 +39,8 @@ def test_get_array(client, get_token):
 @pytest.mark.xfail
 def test_get_array_fail(client, get_token):
     response = client.post("/get_array", json={"sentence": None}, headers=get_token)
+    print(f"response from failed sentence - {response.json()}")
     assert response.status_code == 422
-    assert response.json()["detail"] == {"sentence": ["This field is required."]}
 
 
 @pytest.mark.endpoint

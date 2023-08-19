@@ -6,6 +6,7 @@ from src.auth import (
     verify_password,
 )
 from src.main import verify_token
+from fastapi import HTTPException
 
 
 @pytest.mark.auth
@@ -38,5 +39,7 @@ def test_verify_token_success(token):
 
 @pytest.mark.auth
 @pytest.mark.xfail
-def test_verify_token_failure():
-    assert verify_token("invalid_token") == "admin"
+def test_verify_token_failure(token):
+    invalid_token = token + "abc"
+    with pytest.raises(HTTPException):
+        verify_token(invalid_token)
